@@ -1,0 +1,162 @@
+<html>
+  <head>
+    <title>H-Manager - Medicine Counter</title>
+    <meta name="description" content="Medicine Counter to calculate the cost of your medications" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E88E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M22 12h-4l-3 9L9 3l-3 9H2'/%3E%3C/svg%3E" />
+
+    <!-- Include Tailwind CSS via CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+      /* Additional custom styles */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .btn-primary {
+        background-color: #1C64F2;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: all 0.2s;
+      }
+      .btn-primary {
+        display: inline-block;
+        background-color: #2563eb;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+        transition: background-color 0.2s;
+      }
+      
+      .btn-primary:hover {
+        background-color: #1d4ed8;
+      }
+      
+      /* Medicine Counter specific styles */
+      .tag {
+        background-color: #2563eb;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin: 5px;
+      }
+
+      .tag:hover {
+        background-color: #1d4ed8;
+      }
+
+      .selected {
+        background-color: #6b7280;
+      }
+
+      .counter {
+        margin-top: 20px;
+        font-size: 20px;
+        background-color: #f3f4f6;
+        padding: 10px;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col">
+      <!-- HEADER -->
+      <header class="fixed w-full top-0 z-50 glass-panel">
+        <div class="container mx-auto px-4 sm:px-6 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <a href="index.html" class="flex items-center space-x-2">
+                <span class="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center">
+                  <span class="text-white font-bold">H</span>
+                </span>
+                <span class="font-bold text-xl text-blue-600">H-Manager</span>
+              </a>
+            </div>
+            <nav class="flex space-x-8">
+              <a href="index.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Home</a>
+              <a href="chatbot.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">AI Chatbot</a>
+              <a href="Doctor.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Find Doctors</a>
+              <a href="dropdownTryOut.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Hospitals</a>
+              <a href="costCalc.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Cost Calculator</a>
+            </nav>
+            <div>
+              <a href="#" class="btn-primary">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </header>
+      
+      <!-- MAIN CONTENT -->
+      <main class="flex-grow py-20">
+        <div class="container mx-auto px-4 sm:px-6 mt-16">
+          <h1 class="text-3xl font-bold text-blue-900 mb-8">Medicine Counter</h1>
+          
+          <div class="bg-white rounded-xl shadow-md p-6">
+            <div class="tags flex flex-wrap gap-2 mb-6">
+                <div class="tag" onclick="toggleTag(this, 30)">Paracetamol</div>
+                <div class="tag" onclick="toggleTag(this, 25)">Levocetirizine</div>
+                <div class="tag" onclick="toggleTag(this, 50)">Penicillin</div>
+                <div class="tag" onclick="toggleTag(this, 45)">Tetracycline</div>
+                <div class="tag" onclick="toggleTag(this, 40)">Sulphonamide</div>
+                <div class="tag" onclick="toggleTag(this, 60)">Ibuprofen</div>
+                <div class="tag" onclick="toggleTag(this, 20)">Amoxicillin</div>
+                <div class="tag" onclick="toggleTag(this, 35)">Ciprofloxacin</div>
+                <div class="tag" onclick="toggleTag(this, 55)">Metformin</div>
+                <div class="tag" onclick="toggleTag(this, 70)">Aspirin</div>
+                <div class="tag" onclick="toggleTag(this, 80)">Azithromycin</div>
+                <div class="tag" onclick="toggleTag(this, 90)">Ceftriaxone</div>
+                <div class="tag" onclick="toggleTag(this, 65)">Diclofenac</div>
+                <div class="tag" onclick="toggleTag(this, 75)">Clindamycin</div>
+                <div class="tag" onclick="toggleTag(this, 85)">Doxycycline</div>
+                <div class="tag" onclick="toggleTag(this, 95)">Fluconazole</div>
+                <div class="tag" onclick="toggleTag(this, 100)">Itraconazole</div>
+                <div class="tag" onclick="toggleTag(this, 110)">Acyclovir</div>
+                <div class="tag" onclick="toggleTag(this, 120)">Oseltamivir</div>
+                <div class="tag" onclick="toggleTag(this, 50)">Multivitamin A-Z</div>
+                <div class="tag" onclick="toggleTag(this, 45)">Vitamin C Tablets</div>
+                <div class="tag" onclick="toggleTag(this, 30)">Iron Supplement</div>
+                <div class="tag" onclick="toggleTag(this, 25)">Calcium Tablets</div>
+                <div class="tag" onclick="toggleTag(this, 55)">Omega-3 Capsules</div>
+                <div class="tag" onclick="toggleTag(this, 40)">B-Complex Tablets</div>
+              </div>
+            <div class="counter text-center p-4 bg-gray-100 rounded-lg">
+              MRP of medicine you should have to pay: Rs <span id="total" class="font-bold">0</span>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+      <!-- FOOTER -->
+      <footer class="bg-blue-900 text-white">
+        <div class="container mx-auto px-4 py-12">
+          <div>
+            <h3 class="text-xl font-bold mb-4">Utkarsh Srivastava</h3>
+            <div class="text-blue-200 text-sm mb-2">Reg. No: 23BCB0109</div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      let total = 0;
+      function toggleTag(element, price) {
+          if (!element.classList.contains("selected")) {
+              total += price;
+              element.classList.add("selected");
+          } else {
+              total -= price;
+              element.classList.remove("selected");
+          }
+          document.getElementById("total").textContent = total;
+      }
+    </script>
+  </body>
+</html>

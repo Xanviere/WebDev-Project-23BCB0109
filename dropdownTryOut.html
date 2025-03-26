@@ -1,0 +1,138 @@
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .glass-panel {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #1C64F2;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s;
+        }
+        div.content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            flex-direction: column;
+        }
+        
+        select {
+            width: 75%;
+            padding: 10px;
+            font-size: 18px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+        .info {
+            margin-top: 20px;
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            width: 75%;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            min-height: 120px;
+            visibility: hidden;
+        }
+        .visible {
+            visibility: visible;
+        }
+    </style>
+    <script>
+        function updateInfo() {
+            const location = document.getElementById("location").value;
+            const infoBox = document.getElementById("infoDisplay");
+            let info = "<p>Please select a location.</p>";
+
+            switch (location) {
+                case "Vellore":
+                    info = "<p>Name: CMC Vellore</p><p>Address: XYZ Katpadi</p><p>Phone Number: 123456</p><p>Expected Cost: 9876</p>";
+                    break;
+                case "Chennai":
+                    info = "<p>Name: Chennai Government Medical College</p><p>Address: ABC Road, near XYZ Mall</p><p>Phone Number: 213456</p><p>Expected Cost: 500</p>";
+                    break;
+                case "Lucknow":
+                    info = "<p>Name: Lucknow Medical Institute</p><p>Address: DEF Colony, Sector 7</p><p>Phone Number: 323456</p><p>Expected Cost: 3000</p>";
+                    break;
+                case "Mumbai":
+                    info = "<p>Name: Mumbai City Hospital</p><p>Address: GHI Avenue, Bandra</p><p>Phone Number: 423456</p><p>Expected Cost: 7000</p>";
+                    break;
+            }
+
+            infoBox.innerHTML = info;
+            infoBox.classList.add("visible");
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body>
+    <header class="fixed w-full top-0 z-50 glass-panel" >
+        <div class="container mx-auto px-4 sm:px-6 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <a href="index.html" class="flex items-center space-x-2">
+                <span class="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center">
+                  <span class="text-white font-bold">H</span>
+                </span>
+                <span class="font-bold text-xl text-blue-600">H-Manager</span>
+              </a>
+            </div>
+            <nav class="flex space-x-8">
+              <a href="index.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Home</a>
+              <a href="chatbot.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">AI Chatbot</a>
+              <a href="Doctor.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Find Doctors</a>
+              <a href="dropdownTryOut.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Hospitals</a>
+              <a href="costCalc.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Cost Calculator</a>
+            </nav>
+
+            <div>
+              <a href="#" class="btn-primary">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <br>
+      <br>
+      <br>
+    <div class="content">
+        <h2>Select Location</h2>
+        <select id="location" onchange="updateInfo()">
+            <option value="">--Select--</option>
+            <option value="Vellore">Vellore</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Lucknow">Lucknow</option>
+            <option value="Mumbai">Mumbai</option>
+        </select>
+        <div id="infoDisplay" class="info"></div>
+    </div>
+    <footer class="bg-blue-900 text-white">
+        <div class="container mx-auto px-4 py-12">
+          <div>
+            <h3 class="text-xl font-bold mb-4">Utkarsh Srivastava</h3>
+            <div class="text-blue-200 text-sm mb-2">Reg. No: 23BCB0109</div>
+          </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<html>
+<head>
+    <title>Symptom Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        .container2 {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .symptoms {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .symptom {
+            padding: 10px 15px;
+            border: 1px solid #0d47a1;
+            background: #e3f2fd;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .selected {
+            background: #0d47a1;
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #0d47a1;
+        }
+        .submit {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #2ce6ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .submit:hover {
+            background: #015e6a;
+        }
+        .glass-panel {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+        background-color: #1C64F2;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: all 0.2s;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+    <header class="fixed w-full top-0 z-50 glass-panel" >
+        <div class="container mx-auto px-4 sm:px-6 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <a href="index.html" class="flex items-center space-x-2">
+                <span class="h-8 w-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center">
+                  <span class="text-white font-bold">H</span>
+                </span>
+                <span class="font-bold text-xl text-blue-600">H-Manager</span>
+              </a>
+            </div>
+            <nav class="flex space-x-8">
+              <a href="index.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Home</a>
+              <a href="chatbot.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">AI Chatbot</a>
+              <a href="Doctor.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Find Doctors</a>
+              <a href="dropdownTryOut.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Hospitals</a>
+              <a href="costCalc.html" class="text-blue-900 hover:text-blue-600 font-medium transition-colors py-2">Cost Calculator</a>
+            </nav>
+            <div>
+              <a href="#" class="btn-primary">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </header>
+    <div class="container2">
+        <h2>Select Your Symptoms</h2>
+        <div class="symptoms" id="symptom-container">
+        </div>
+        <button onclick="checkDoctor()" class="submit">Submit</button>
+        <div class="result" id="result"></div>
+    </div>
+    <footer class="bg-blue-900 text-white">
+        <div class="container mx-auto px-4 py-12">
+          <div>
+            <h3 class="text-xl font-bold mb-4" >Utkarsh Srivastava</h3>
+            <div class="text-blue-200 text-sm mb-2">Reg. No: 23BCB0109</div>
+          </div>
+        </div>
+    </footer>
+</div>
+    <script>
+        const symptoms = [
+            { name: "Headache", type: "general" },
+            { name: "Nausea", type: "gastro" },
+            { name: "Heartburn", type: "gastro" },
+            { name: "Difficulty Breathing", type: "pulmonologist" },
+            { name: "Chest Pain", type: "cardiologist" },
+            { name: "Dizziness", type: "general" },
+            { name: "Abdominal Pain", type: "gastro" },
+            { name: "Chronic Cough", type: "pulmonologist" },
+            { name: "Fever", type: "general" },
+            { name: "Fatigue", type: "general" },
+            { name: "Irregular Heartbeat", type: "cardiologist" },
+            { name: "Vomiting", type: "gastro" },
+            { name: "Shortness of Breath", type: "pulmonologist" },
+            { name: "Swelling in Legs", type: "cardiologist" },
+            { name: "Loss of Appetite", type: "general" }
+        ];
+
+        const doctorCount = {
+            general: 0,
+            gastro: 0,
+            pulmonologist: 0,
+            cardiologist: 0
+        };
+
+        const container = document.getElementById("symptom-container");
+        symptoms.forEach(symptom => {
+            let div = document.createElement("div");
+            div.classList.add("symptom");
+            div.innerText = symptom.name;
+            div.dataset.type = symptom.type;
+            div.onclick = () => toggleSymptom(div, symptom.type);
+            container.appendChild(div);
+        });
+
+        function toggleSymptom(element, type) {
+            if (element.classList.contains("selected")) {
+                element.classList.remove("selected");
+                doctorCount[type]--;
+            } else {
+                element.classList.add("selected");
+                doctorCount[type]++;
+            }
+        }
+
+        function checkDoctor() {
+            let maxCount = Math.max(...Object.values(doctorCount));
+            let selectedDoctors = Object.keys(doctorCount).filter(doctor => doctorCount[doctor] === maxCount);
+            let resultText = "";
+
+            if (selectedDoctors.length === 1) {
+                resultText = `You should visit a ${selectedDoctors[0]}.`;
+            } else {
+                if (selectedDoctors.includes("general") && selectedDoctors.length > 1) {
+                    resultText = `You should visit a ${selectedDoctors.find(d => d !== "general")}.`;
+                } else if (selectedDoctors.length >= 2 && selectedDoctors.some(d => doctorCount[d] >= 3)) {
+                    resultText = `You should visit both a general doctor and a specialist: ${selectedDoctors.join(", ")}.`;
+                } else {
+                    resultText = `You should visit a general doctor.`;
+                }
+            }
+            document.getElementById("result").innerText = resultText;
+        }
+    </script>
+</body>
+</html>
